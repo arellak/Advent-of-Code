@@ -11,14 +11,15 @@ const pStart = performance.now();
 let score = 0;
 
 INPUT.forEach(line => {
-    let partOne = line.slice(0, (line.length/2));
-    let partTwo = line.slice((line.length/2));
+    const partOne = line.slice(0, (line.length / 2));
+    const partTwo = line.slice((line.length / 2));
 
-    for(const ch of partOne) {
-        if(partTwo.includes(ch)) {
-            if(ch.match(/[A-Z]/)) {
+    for(const ch of partOne){
+        if(partTwo.includes(ch)){
+            if(ch.match(/[A-Z]/)){
                 score += ch.charCodeAt(0) - 38;
-            } else {
+            }
+            else {
                 score += ch.charCodeAt(0) - 96;
             }
             break;

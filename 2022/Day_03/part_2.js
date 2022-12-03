@@ -10,16 +10,17 @@ const pStart = performance.now();
 
 let score = 0;
 
-for(let i = 0; i < INPUT.length; i+=3) {
+for(let i = 0; i < INPUT.length; i += 3){
     const first = INPUT[i];
-    const second = INPUT[i+1];
-    const third = INPUT[i+2];
+    const second = INPUT[i + 1];
+    const third = INPUT[i + 2];
 
-    for(const ch of first) {
-        if(second.includes(ch) && third.includes(ch)) {
-            if(ch.match(/[A-Z]/)) {
+    for(const ch of first){
+        if(second.includes(ch) && third.includes(ch)){
+            if(ch.match(/[A-Z]/)){
                 score += ch.charCodeAt(0) - 38;
-            } else {
+            }
+            else {
                 score += ch.charCodeAt(0) - 96;
             }
             break;

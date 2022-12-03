@@ -12,9 +12,10 @@ let maxCalories = 0;
 let currentElv = 0;
 
 INPUT.forEach(line => {
-    if(line !== "") {
-        currentElv += parseInt(line);
-    } else {
+    if(line !== ""){
+        currentElv += parseInt(line, 10);
+    }
+    else {
         // check if current elv has more calories than the current maximum
         if(currentElv > maxCalories) maxCalories = currentElv;
         currentElv = 0;

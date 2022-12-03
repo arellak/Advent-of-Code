@@ -9,27 +9,30 @@ const INPUT = String(fs.readFileSync(path.join(__dirname, "input.txt"))).split(r
 const pStart = performance.now();
 
 let currentElv = 0;
-let topThree = [];
+const topThree = [];
 
 INPUT.forEach(line => {
-    if(line !== "") {
-        currentElv += parseInt(line);
-    } else {
-        if(currentElv > topThree[0] || isNaN(topThree[0])) {
+    if(line !== ""){
+        currentElv += parseInt(line, 10);
+    }
+    else{
+        if(currentElv > topThree[0] || isNaN(topThree[0])){
             topThree[2] = topThree[1];
             topThree[1] = topThree[0];
-            topThree[0] = currentElv;            
-        } else if(currentElv > topThree[1] || isNaN(topThree[1])) {
+            topThree[0] = currentElv;
+        }
+        else if(currentElv > topThree[1] || isNaN(topThree[1])){
             topThree[2] = topThree[1];
             topThree[1] = currentElv;
-        } else if(currentElv > topThree[2] || isNaN(topThree[2])) {
+        }
+        else if(currentElv > topThree[2] || isNaN(topThree[2])){
             topThree[2] = currentElv;
         }
         currentElv = 0;
     }
 });
 
-const result = parseInt(topThree[0]) + parseInt(topThree[1]) + parseInt(topThree[2]);
+const result = parseInt(topThree[0], 10) + parseInt(topThree[1], 10) + parseInt(topThree[2], 10);
 
 const pEnd = performance.now();
 
