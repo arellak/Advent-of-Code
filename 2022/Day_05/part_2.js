@@ -24,8 +24,6 @@ for(let i = stackTower.split("\n").length - 2; i >= 0; i--){
     }
 }
 
-// console.log(stacks[1].slice(3));
-
 instructions.split("\n").forEach(l => {
     const count = Number(l.split(" ")[1]);
     const from = Number(l.split(" ")[3]) - 1;
@@ -33,12 +31,9 @@ instructions.split("\n").forEach(l => {
     let move = [];
 
     for(let i = 0; i < count; i++){
-        // stacks[to][stacks[to].length] = stacks[from][stacks[from].length-1];
         move.push(stacks[from][stacks[from].length-1]);
-        // console.log(stacks[from][stacks[from].length-1]);
         stacks[from].pop();
     }
-    // console.log(move);
     move.reverse();
     for(const element of move){
         stacks[to][stacks[to].length] = element;
