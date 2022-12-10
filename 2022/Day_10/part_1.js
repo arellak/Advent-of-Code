@@ -64,5 +64,5 @@ const reso = signalStrengthes[0] + signalStrengthes[1] + signalStrengthes[2] + s
 
 const pEnd = performance.now();
 
-console.log("<DESCRIPTION>: " + reso);
+console.log("Day 10 Part 1: " + reso);
 console.log(pEnd - pStart);

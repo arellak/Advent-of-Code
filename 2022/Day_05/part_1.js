@@ -5,17 +5,37 @@ const path = require("path");
 const { performance } = require("perf_hooks");
 
 const INPUT = String(fs.readFileSync(path.join(__dirname, "input.txt"))); // change this if necessary
-const [stacks, instructions] = INPUT.split("\n\n");
+const [stackTower, instructions] = INPUT.split("\n\n");
+
+const stacks = {}; 
 
 const pStart = performance.now();
 
-// do all the things to parse instructions
-const inst = instructions.split("\n").map(i => i.replace("move ", "").replace("from", "").replace("to", "")).filter(i => i !== "").map(i => i.split(" "));
-console.log(inst);
+for(let i = stackTower.split("\n").length - 2; i >= 0; i--){
+    const line = stackTower.split("\n")[i];
+    for(let j = 1; j < line.length; j += 4){
+        let letter = line[j];
+        if(!stacks[Math.round(j/4)]){
+            stacks[Math.round(j/4)] = [];
+        }
+        if(letter !== " "){
+            stacks[Math.round(j/4)].push(letter);
+        }
+    }
+}
 
-const result = "...";
+
+instructions.split("\n").forEach(l => {
+    const count = Number(l.split(" ")[1]);
+    const from = Number(l.split(" ")[3]) - 1;
+    const to = Number(l.split(" ")[5]) - 1;
+    for(let i = 0; i < count; i++){
+        stacks[to][stacks[to].length] = stacks[from][stacks[from].length-1];
+        stacks[from].pop();
+    }
+});
 
 const pEnd = performance.now();
 
-console.log("<DESCRIPTION>: " + result);
+console.log("<DESCRIPTION>: " + stacks);
 console.log(pEnd - pStart);

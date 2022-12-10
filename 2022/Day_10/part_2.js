@@ -28,7 +28,6 @@ INPUT.forEach(l => {
     else if(l[0] === "addx"){
         for(let i = 0; i < 2; i++){
             if(cycles % 40 === 0) image += "\n";
-            console.log(`${cycles} <=> ${register}`);
             if(cycles % 40 === register || cycles % 40 === register - 1 || cycles % 40 === register + 1){
                 image += "#";
             }
@@ -41,9 +40,7 @@ INPUT.forEach(l => {
     }
 });
 
-console.log(image);
-
 const pEnd = performance.now();
 
-console.log("<DESCRIPTION>: " );
+console.log("Day 10 Part 2: " + image);
 console.log(pEnd - pStart);
