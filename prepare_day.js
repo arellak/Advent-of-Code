@@ -63,6 +63,10 @@ const headers = {
 
     const $ = cheerio.load(markup);
 
+    $("a > span").each((_, el) => {
+        $(el).replaceWith($(el).text());
+    });
+
     $("span").remove();
     $("pre em, pre code").each((_, el) => {
         $(el).replaceWith($(el).text());
@@ -80,6 +84,11 @@ const headers = {
 
         let sanitized = article.replace(/(<\/li>)|(<ul>)|(<\/ul>)/g, "")
             .replace(/<li>/g, "- ")
+            .replace(/&gt;/g, ">")
+            .replace(/&lt;/g, "<")
+            .replace(/&amp;/g, "&")
+            .replace(/&quot;/g, '"')
+            .replace(/&apos;/g, "'")
             .replace(/(<h2>)|(<h2 id="part2">)/g, "## ")
             .replace(/<\/h2>/g, "\n")
             .replace(/<code><em>/g, "**`")
@@ -95,7 +104,7 @@ const headers = {
             const [, href, text] = link.match(/<a href="(.+?)">(.+?)<\/a>/) ?? [];
             const regex = new RegExp(String(link.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&")).trim(), "gi");
 
-            sanitized = sanitized.replace(regex, `[${text}](${href.replace(/&amp;/g, "&")})`);
+            sanitized = sanitized.replace(regex, `[${text}](${href?.replace(/&amp;/g, "&")})`);
         });
 
         return sanitized;
@@ -119,11 +128,11 @@ Author: Eric Wastl ([@ericwastl](https://twitter.com/ericwastl)) (${year})
 
     const CODE = `"use strict";
 
-const fs = require("fs");
-const path = require("path");
-const { performance } = require("perf_hooks");
+const fs = require("node:fs");
+const path = require("node:path");
+const { performance } = require("node:perf_hooks");
 
-const INPUT = String(fs.readFileSync(path.join(__dirname, "input.txt"))).split("\\n"); // change this if necessary
+const INPUT = String(fs.readFileSync(path.join(__dirname, "input.txt"))).trim().split("\\n"); // change this if necessary
 
 const pStart = performance.now();
 
@@ -140,5 +149,5 @@ console.log(pEnd - pStart);
 
     if (!fs.existsSync(`${dir}/part_1.js`)) fs.writeFileSync(`${dir}/part_1.js`, CODE);
     if (!fs.existsSync(`${dir}/part_2.js`)) fs.writeFileSync(`${dir}/part_2.js`, CODE);
-    exec(`git add ${dir}/*`)
+    exec(`git add ${dir}/*`);
 })();
