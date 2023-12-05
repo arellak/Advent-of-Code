@@ -94,8 +94,10 @@ const headers = {
             .replace(/<code><em>/g, "**`")
             .replace(/<\/em><\/code>/g, "`**")
             .replace(/(<code>)|(<\/code>)/g, "`")
+            .replace(/<pre>\n/g, "```\n")
             .replace(/<pre>/g, "```\n")
-            .replace(/<\/pre>/g, "```")
+            .replace(/\n<\/pre>/g, "\n```")
+            .replace(/<\/pre>/g, "\n```")
             .replace(/(<em>)|(<em class=".*">)|(<\/em>)/g, "**")
             .replace(/(<p>)|(<\/p>)/g, "\n")
             .replace(/\n{3,}/g, "\n\n");
@@ -132,7 +134,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 const { performance } = require("node:perf_hooks");
 
-const INPUT = String(fs.readFileSync(path.join(__dirname, "input.txt"))).trim().split("\\n"); // change this if necessary
+const INPUT = String(fs.readFileSync(path.join(__dirname, "input.txt"))).trim().split("\\n");
 
 const pStart = performance.now();
 
