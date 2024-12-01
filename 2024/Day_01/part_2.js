@@ -23,7 +23,7 @@ leftList = leftList.sort();
 rightList = rightList.sort();
 
 let result = 0;
-leftList.forEach((leftValue, index) => {
+leftList.forEach((leftValue) => {
     let appearances = 0;
     rightList.forEach(rightValue => {
         if(leftValue === rightValue){
